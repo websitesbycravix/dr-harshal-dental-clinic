@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr Harshal's Dental Clinic</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        navy: {
+                            900: '#111836',
+                            800: '#1a2347',
+                        },
+                        brand: {
+                            blue: '#e0e7ff',
+                            dark: '#0f172a'
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { 
+            scroll-behavior: smooth; 
+            background-color: #f8fafc; 
+        }
+        body { 
+            background-color: #f8fafc; 
+            color: #0f172a; 
+            overflow-x: hidden; 
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .custom-input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #cbd5e1;
+            border-radius: 0;
+            padding: 12px 0;
+            width: 100%;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .custom-input:focus { 
+            border-bottom-color: #3b82f6; 
+            box-shadow: 0 1px 0 0 #3b82f6; 
+        }
+
+        .hero-gradient { background: linear-gradient(180deg, #ffffff 0%, #c7d2fe 100%); }
+        .booking-gradient { background: linear-gradient(180deg, #ffffff 0%, #e0e7ff 100%); }
+        .footer-bg { background-color: #0b112c; }
+
+        /* Slider Specific Classes */
+        .slider-track {
+            display: flex;
+            will-change: transform;
+            user-select: none; 
+            -webkit-user-select: none;
+            touch-action: pan-y;
+        }
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+        .slider-item img {
+            pointer-events: none;
+        }
+        .grabbing { cursor: grabbing !important; }
+        .grab { cursor: grab; }
+        
+        /* HD Image Fix */
+        .doctor-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            object-position: top;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="flex items-center justify-between p-6 bg-white sticky top-0 z-50 shadow-sm reveal active">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-asterisk text-blue-500 text-2xl"></i>
+            <span class="text-xl font-bold text-navy-900 tracking-tight">Dr Harshal's Dental Clinic</span>
+        </div>
+        <button class="w-10 h-10 bg-navy-900 text-white rounded flex items-center justify-center hover:bg-navy-800 transition">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <header class="hero-gradient px-6 pt-12 pb-24 text-center rounded-b-[40px] relative">
+        <div class="reveal">
+            <span class="inline-block bg-white px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 tracking-wider mb-6 shadow-sm">DENTAL CLINIC</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-medium text-navy-900 leading-tight mb-8 reveal" style="transition-delay: 100ms;">
+            Brighten your smile <br> with <span class="font-serif italic text-navy-800">expert dental care</span>
+        </h1>
+        
+        <div class="flex justify-center mb-16 reveal" style="transition-delay: 200ms;">
+            <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
+                <span class="font-medium">Schedule Your Visit</span>
+                <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                </div>
+            </button>
+        </div>
+
+        <div class="relative w-32 h-32 mx-auto reveal" style="transition-delay: 300ms;">
+            <div class="absolute inset-0 bg-white/40 rounded-full backdrop-blur-sm border border-white/60 flex items-center justify-center">
+                <span class="text-4xl font-bold text-navy-900">M</span>
+            </div>
+            <svg class="absolute inset-0 w-full h-full animate-spin-slow" viewBox="0 0 100 100">
+                <path id="circlePath" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                <text class="text-[10px] font-medium fill-navy-900 uppercase tracking-widest">
+                    <textPath href="#circlePath" startOffset="0%">Your Dental Assistant | Your Dental Assistant | </textPath>
+                </text>
+            </svg>
+        </div>
+    </header>
+
+    <main class="px-4 -mt-10 space-y-12 pb-8 max-w-md mx-auto md:max-w-4xl overflow-hidden">
+
+        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
+            <h3 class="text-lg font-semibold text-navy-900 mb-2">Caring Dentists</h3>
+            <p class="text-gray-600 text-sm mb-4">Your health and safety are our top priority</p>
+            <a href="#" class="text-navy-900 font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-70 transition">
+                Explore More <i class="fa-solid fa-arrow-right -rotate-45"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white rounded-3xl p-6 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal flex flex-col justify-center items-center">
+                <i class="fa-solid fa-tooth text-blue-500 text-2xl mb-3"></i>
+                <p class="text-gray-500 text-xs mb-1">Smiles Transformed</p>
+                <h4 class="text-2xl font-bold text-navy-900">5,000+</h4>
+            </div>
+            
+            <div class="bg-white rounded-3xl overflow-hidden reveal relative h-40 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                <img src="https://i.ibb.co/7NQYj8TQ/1774104674862.png" alt="Dental Equipment" class="absolute inset-0 w-full h-full object-cover z-10">
+            </div>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal flex items-center gap-5">
+            <div class="flex -space-x-4 shrink-0">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-30" alt="User">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-20" alt="User">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-10" alt="User">
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-0.5">Join 5,000+</p>
+                <p class="text-navy-900 font-medium text-sm leading-tight">Trusted by 5,000+ happy patients</p>
+            </div>
+        </div>
+
+        <div class="text-center pt-10 pb-4 reveal">
+            <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># About Clinic</span>
+            <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-4">Your trusted partners in<br>dental care</h2>
+            <p class="text-gray-600 text-sm leading-relaxed mb-8 px-2">
+                At Dr Harshal's Dental Clinic, we believe that a healthy smile is a happy smile. Our dedicated team of professionals combines years of experience, cutting-edge technology, and a warm, caring atmosphere to ensure you get the best dental care possible.
+            </p>
+            <div class="flex justify-center mb-10">
+                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
+                    <span class="font-medium text-sm">Meet a Doctor</span>
+                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <div class="rounded-3xl overflow-hidden reveal">
+                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" alt="Dentist treating patient" class="w-full h-64 object-cover">
+            </div>
+        </div>
+
+        <div class="text-center pt-10 reveal">
+            <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Why Choose Us</span>
+            <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-8">The top reasons our<br>patients love us</h2>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
+            <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center text-navy-900 text-4xl">
+                <i class="fa-solid fa-file-contract"></i>
+            </div>
+            <p class="text-navy-900 font-medium mb-4">Certified by the Dental Association</p>
+            <a href="#" class="text-blue-600 font-semibold text-sm flex items-center justify-center gap-2 border-b border-blue-600 pb-1 inline-flex hover:opacity-70 transition">
+                Schedule Your Visit <i class="fa-solid fa-arrow-right -rotate-45"></i>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
+            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-tooth text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="text-navy-900 font-semibold mb-3">Experienced & Caring Dentists</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                With over years of experience, our team provides expert care with a gentle touch, ensuring a comfortable and effective experience every time.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
+            <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-calendar-day text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="text-navy-900 font-semibold mb-3">Same-Day Appointments</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+                We respect your time. Flexible scheduling including emergency same-day visits available.
+            </p>
+        </div>
+
+        <div class="text-center pt-10 reveal">
+            <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Services</span>
+            <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-8">Comprehensive dental care for your smile</h2>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8">
+            <ul class="space-y-4" id="services-list">
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">01</span>
+                        <span class="text-navy-900 font-medium">Teeth Cleaning</span>
+                    </div>
+                    <button aria-label="Learn more about Teeth Cleaning" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+                
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">02</span>
+                        <span class="text-navy-900 font-medium">Teeth Whitening</span>
+                    </div>
+                    <button aria-label="Learn more about Teeth Whitening" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+                
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">03</span>
+                        <span class="text-navy-900 font-medium">Orthodontics</span>
+                    </div>
+                    <button aria-label="Learn more about Orthodontics" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+                
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">04</span>
+                        <span class="text-navy-900 font-medium">Dental Implants</span>
+                    </div>
+                    <button aria-label="Learn more about Dental Implants" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+                
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">05</span>
+                        <span class="text-navy-900 font-medium">Emergency Care</span>
+                    </div>
+                    <button aria-label="Learn more about Emergency Care" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+                
+                <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between pt-1 transition-all duration-500">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">06</span>
+                        <span class="text-navy-900 font-medium">Fillings & Restorations</span>
+                    </div>
+                    <button aria-label="Learn more about Fillings & Restorations" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                        <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="booking-gradient rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal text-center relative overflow-hidden">
+            <span class="inline-block bg-white border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase relative z-10"># Appointment Booking</span>
+            <h2 class="text-2xl font-medium text-navy-900 leading-tight mb-8 relative z-10">Easy & quick appointment booking</h2>
+            
+            <form class="space-y-4 text-left relative z-10">
+                <input type="text" placeholder="Full name *" class="custom-input text-sm">
+                <input type="email" placeholder="Email *" class="custom-input text-sm">
+                <input type="tel" placeholder="Phone number *" class="custom-input text-sm">
+                <input type="text" placeholder="Reason for visit (e.g., toothache, cleaning) *" class="custom-input text-sm mb-6">
+                
+                <div class="flex justify-start">
+                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-[0_8px_20px_rgba(17,24,54,0.3)] active:scale-95 w-max mt-4 shadow-lg overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]">
+                        <span id="btn-text" class="transition-opacity duration-300 absolute">Reserve Your Spot</span>
+                        
+                        <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin absolute opacity-0 transition-opacity duration-300 pointer-events-none text-lg"></i>
+                        
+                        <div id="btn-success" class="absolute flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <i class="fa-solid fa-check text-lg"></i>
+                            <span class="font-bold tracking-wide">Reserved!</span>
+                        </div>
+                    </button>
+                </div>
+            </form>
+            <i class="fa-solid fa-quote-left absolute -bottom-4 -left-2 text-8xl text-blue-100 opacity-50 z-0"></i>
+        </div>
+
+        <div class="reveal relative overflow-hidden -mx-4 px-4 pb-4">
+            <div class="slider-track grab" id="testimonial-track">
+                
+                <div class="slider-item original-slide">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Anjali Sharma">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Anjali Sharma</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-item original-slide">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                I've always dreaded visiting the dentist, but Dr Harshal's Dental Clinic changed that completely. The procedure was incredibly smooth and the recovery was fast.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Rahul Desai">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Rahul Desai</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-item original-slide">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                State-of-the-art clinic with a very warm environment. The doctors explained every step of the process patiently. Highly recommended!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Priya Patel">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Priya Patel</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="flex justify-center items-center gap-2 mt-6" id="slider-dots">
+                <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
+            </div>
+        </div>
+
+        <div class="text-center pt-10 reveal">
+            <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Our Team</span>
+            <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">Your trusted dental professionals</h2>
+        </div>
+
+        <div id="team-grid" class="flex justify-center reveal mb-8">
+            
+            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:-translate-y-2 transition-transform duration-300 cursor-pointer w-full max-w-[320px]">
+                <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" alt="Dr. Harshal Munot" class="doctor-img group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <h3 class="text-navy-900 font-semibold mb-1">Dr. Harshal Munot</h3>
+                <p class="text-gray-500 text-sm pb-2">Chief Dentist</p>
+            </div>
+
+        </div>
+
+        <div class="text-center pt-10 reveal">
+            <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Insights</span>
+            <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">From our blog: tips & insights for healthy smiles</h2>
+        </div>
+
+        <div class="space-y-8">
+            <a href="#" class="insight-card block reveal group cursor-pointer bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 [&.hover-activated]:-translate-y-1 transition-transform duration-300 overflow-hidden">
+                <div class="overflow-hidden">
+                    <img src="https://i.ibb.co/rGBKt04w/image-1.jpg" alt="Teeth Cleaning" class="w-full h-56 object-cover group-hover:scale-105 group-[.hover-activated]:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-xl font-medium text-navy-900">5 Tips to Keep Your Teeth Healthy</h3>
+                    <p class="text-gray-600 text-sm">Learn simple daily habits that keep your teeth clean and strong</p>
+                    <div class="flex items-center justify-end">
+                        <div class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-blue-50 group-[.hover-activated]:bg-blue-50 group-hover:text-blue-600 group-[.hover-activated]:text-blue-600 transition-colors duration-300">
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="insight-card block reveal group cursor-pointer bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 [&.hover-activated]:-translate-y-1 transition-transform duration-300 overflow-hidden">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800" alt="Dental Clinic" class="w-full h-56 object-cover group-hover:scale-105 group-[.hover-activated]:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-xl font-medium text-navy-900">How to Choose the Right Toothbrush</h3>
+                    <p class="text-gray-600 text-sm">Find out what toothbrush suits your dental needs best</p>
+                    <div class="flex items-center justify-end">
+                        <div class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-blue-50 group-[.hover-activated]:bg-blue-50 group-hover:text-blue-600 group-[.hover-activated]:text-blue-600 transition-colors duration-300">
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="insight-card block reveal group cursor-pointer bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1 [&.hover-activated]:-translate-y-1 transition-transform duration-300 overflow-hidden">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800" alt="Coffee cup" class="w-full h-56 object-cover group-hover:scale-105 group-[.hover-activated]:scale-105 transition-transform duration-700">
+                </div>
+                <div class="p-6 space-y-4">
+                    <h3 class="text-xl font-medium text-navy-900">Top 5 Foods That Secretly Stain Your Teeth</h3>
+                    <p class="text-gray-600 text-sm">Coffee, tea, and berries can dull your smile over time. Learn how to enjoy your favorite foods while protecting your enamel.</p>
+                    <div class="flex items-center justify-end">
+                        <div class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-blue-50 group-[.hover-activated]:bg-blue-50 group-hover:text-blue-600 group-[.hover-activated]:text-blue-600 transition-colors duration-300">
+                            <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer-bg rounded-t-[40px] px-6 pt-16 pb-10 text-white relative mt-8 max-w-md mx-auto md:max-w-4xl">
+        <div class="reveal">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-asterisk text-blue-400 text-2xl"></i>
+                        <span class="text-2xl font-bold tracking-tight">Dr Harshal's Dental Clinic</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Shop No. 3, Pendse Bhawan,<br>Opp. Durvankur Dining Hall, Tilak Road,<br>Sadashiv Peth, Pune, Maharashtra 411030</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-sm text-white bg-[#313a60] px-5 py-2.5 rounded-full hover:bg-blue-500 transition-colors w-max shadow-md">
+                        <i class="fa-solid fa-location-dot"></i> Get Directions
+                    </a>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-300 mb-6 text-sm uppercase tracking-wider">Clinic Hours</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex justify-between border-b border-[#313a60] pb-2"><span>Mon - Fri</span> <span class="text-white">8:00 AM - 8:00 PM</span></li>
+                        <li class="flex justify-between border-b border-[#313a60] pb-2"><span>Saturday</span> <span class="text-white">9:00 AM - 4:00 PM</span></li>
+                        <li class="flex justify-between pb-2"><span>Sunday</span> <span class="text-blue-400 font-medium">Emergency Only</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="bg-white text-navy-900 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 text-blue-50 group-hover:scale-110 transition-transform duration-500 text-6xl">
+                            <i class="fa-solid fa-truck-medical"></i>
+                        </div>
+                        <p class="text-xs font-bold text-red-500 uppercase mb-2 tracking-wider relative z-10">Emergency 24/7</p>
+                        <p class="text-sm mb-4 text-gray-600 relative z-10">Need urgent dental care? Call us immediately.</p>
+                        <p class="text-2xl font-bold mb-1 relative z-10">+91 79474 29120</p>
+                        <a href="mailto:info@drharshalsdental.com" class="text-sm font-medium border-b-2 border-blue-200 hover:border-blue-600 transition-colors relative z-10">info@drharshalsdental.com</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-[#313a60] flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-xs mb-1">&copy; 2026 Dr Harshal's Dental Clinic. All Rights Reserved.</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Scroll Reveal
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // 2. Services List Stagger 
+            const servicesList = document.getElementById('services-list');
+            const staggerItems = document.querySelectorAll('.stagger-item');
+            if (servicesList) {
+                const listObserver = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        staggerItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('opacity-0', 'translate-y-4');
+                                item.classList.add('opacity-100', 'translate-y-0');
+                            }, item.dataset.staggerDelay || index * 100);
+                        });
+                        listObserver.unobserve(servicesList);
+                    }
+                }, { threshold: 0.2 });
+                listObserver.observe(servicesList);
+            }
+
+            // 3. Team Stagger
+            const teamGrid = document.getElementById('team-grid');
+            const teamStaggerItems = document.querySelectorAll('.stagger-item-team');
+            if (teamGrid) {
+                const teamObserver = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        teamStaggerItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('opacity-0', 'translate-y-4');
+                                item.classList.add('opacity-100', 'translate-y-0');
+                            }, index * 150);
+                        });
+                        teamObserver.unobserve(teamGrid);
+                    }
+                }, { threshold: 0.2 });
+                teamObserver.observe(teamGrid);
+            }
+
+            // 4. Booking Button Animation Logic 
+            const bookingBtn = document.getElementById('booking-btn');
+            if (bookingBtn) {
+                const btnText = document.getElementById('btn-text');
+                const btnSpinner = document.getElementById('btn-spinner');
+                const btnSuccess = document.getElementById('btn-success');
+
+                bookingBtn.addEventListener('click', function() {
+                    if (this.classList.contains('processing') || this.classList.contains('success')) return;
+                    
+                    this.classList.add('processing');
+                    
+                    btnText.classList.add('opacity-0');
+                    btnSpinner.classList.remove('opacity-0');
+                    btnSpinner.classList.add('opacity-100');
+
+                    setTimeout(() => {
+                        btnSpinner.classList.remove('opacity-100');
+                        btnSpinner.classList.add('opacity-0');
+                        
+                        this.classList.remove('bg-navy-900', 'hover:bg-navy-800');
+                        this.classList.add('bg-blue-600', 'hover:bg-blue-700', 'success');
+                        
+                        btnSuccess.classList.remove('opacity-0');
+                        btnSuccess.classList.add('opacity-100');
+                        
+                        setTimeout(() => {
+                            this.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'success', 'processing');
+                            this.classList.add('bg-navy-900', 'hover:bg-navy-800');
+                            btnSuccess.classList.remove('opacity-100');
+                            btnSuccess.classList.add('opacity-0');
+                            btnText.classList.remove('opacity-0');
+                        }, 2000);
+                    }, 800);
+                });
+            }
+
+            // 5. Slider Logic
+            const track = document.getElementById('testimonial-track');
+            const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
+            const dots = document.querySelectorAll('#slider-dots button');
+            
+            const firstClone = originalSlides[0].cloneNode(true);
+            const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+            firstClone.id = 'first-clone'; lastClone.id = 'last-clone';
+            track.appendChild(firstClone); track.insertBefore(lastClone, originalSlides[0]);
+            
+            const allSlides = document.querySelectorAll('.slider-item');
+            let currentIndex = 1;
+            let isDragging = false;
+            let isScrolling = false; 
+            
+            let startPosX = 0;
+            let startPosY = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let autoPlayInterval;
+
+            const getValidIndex = (index) => {
+                if (index < 0) return 0;
+                if (index > allSlides.length - 1) return allSlides.length - 1;
+                return index;
+            };
+
+            const updatePosition = (animate = true) => {
+                currentIndex = getValidIndex(currentIndex);
+                const slideWidth = allSlides[0].offsetWidth;
+                
+                track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+                currentTranslate = currentIndex * -slideWidth;
+                track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
+                
+                let activeDotIndex = currentIndex - 1;
+                if (currentIndex === 0) activeDotIndex = originalSlides.length - 1;
+                if (currentIndex === allSlides.length - 1) activeDotIndex = 0;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-navy-900', index === activeDotIndex);
+                    dot.classList.toggle('bg-gray-200', index !== activeDotIndex);
+                });
+            };
+
+            updatePosition(false);
+
+            track.addEventListener('transitionend', () => {
+                if (allSlides[currentIndex].id === 'first-clone') { currentIndex = 1; updatePosition(false); }
+                if (allSlides[currentIndex].id === 'last-clone') { currentIndex = originalSlides.length; updatePosition(false); }
+            });
+
+            const startAutoPlay = () => {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = setInterval(() => {
+                    if(!document.hidden){
+                        currentIndex++;
+                        updatePosition(true);
+                    }
+                }, 3000);
+            };
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    clearInterval(autoPlayInterval);
+                } else {
+                    startAutoPlay();
+                }
+            });
+
+            const touchStart = (event) => {
+                clearInterval(autoPlayInterval);
+                
+                if (currentIndex === 0) {
+                    currentIndex = originalSlides.length;
+                    updatePosition(false);
+                } else if (currentIndex === allSlides.length - 1) {
+                    currentIndex = 1;
+                    updatePosition(false);
+                }
+
+                isDragging = true;
+                isScrolling = false; 
+                
+                startPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                startPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+                
+                currentTranslate = currentIndex * -allSlides[0].offsetWidth; 
+                prevTranslate = currentTranslate;
+                
+                track.style.transition = 'none'; 
+                track.classList.add('grabbing');
+                animationID = requestAnimationFrame(animation);
+            };
+
+            const touchMove = (event) => {
+                if (!isDragging) return;
+                
+                const currentPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                const currentPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+                
+                const diffX = currentPosX - startPosX;
+                const diffY = currentPosY - startPosY;
+
+                if (!isScrolling) {
+                    if (Math.abs(diffY) > Math.abs(diffX)) {
+                        isScrolling = true;
+                        isDragging = false;
+                        track.classList.remove('grabbing');
+                        cancelAnimationFrame(animationID);
+                        return;
+                    }
+                }
+
+                if (!isScrolling) {
+                    currentTranslate = prevTranslate + diffX;
+                }
+            };
+
+            const touchEnd = () => {
+                if (!isDragging && !isScrolling) {
+                    startAutoPlay();
+                    return;
+                }
+                
+                if (isDragging) {
+                    isDragging = false;
+                    cancelAnimationFrame(animationID);
+                    track.classList.remove('grabbing');
+
+                    const movedBy = currentTranslate - prevTranslate;
+
+                    if (movedBy < -30) currentIndex++;
+                    else if (movedBy > 30) currentIndex--;
+
+                    updatePosition(true);
+                }
+                startAutoPlay();
+            };
+
+            const animation = () => {
+                track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
+                if (isDragging) requestAnimationFrame(animation);
+            };
+
+            track.addEventListener('touchstart', touchStart, { passive: true });
+            track.addEventListener('touchmove', touchMove, { passive: true });
+            track.addEventListener('touchend', touchEnd);
+            
+            track.addEventListener('mousedown', touchStart);
+            track.addEventListener('mousemove', touchMove);
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('mouseleave', () => {
+                if(isDragging) touchEnd();
+                startAutoPlay();
+            });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    updatePosition(false);
+                }, 100);
+            });
+
+            startAutoPlay();
+
+            // 6. Insight Cards Two-Tap Logic
+            const insightCards = document.querySelectorAll('.insight-card');
+            insightCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (!this.classList.contains('hover-activated')) {
+                        e.preventDefault(); 
+                        insightCards.forEach(c => c.classList.remove('hover-activated'));
+                        this.classList.add('hover-activated');
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.insight-card')) {
+                    insightCards.forEach(c => c.classList.remove('hover-activated'));
+                }
+            });
+        });
+    </script>
+</body>
+</html>
